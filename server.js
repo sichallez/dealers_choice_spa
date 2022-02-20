@@ -16,6 +16,22 @@ const Skills = db.define('skill', {
     }
 });
 
+const express = require('express');
+const app = express();
+const path = require('path');
+
+app.get('/api/technical_skills', async(req, res, next) => {
+    try {
+        // res.sendFile(path.join(__dirname, 'index.html'));
+        const skill = await Skills.findAll();
+        res.send(skill);
+    }
+    catch (err) {
+        next(err);
+    }
+        
+});
+
 const init = async() => {
     try {
         await db.sync({ force: true });
@@ -31,6 +47,9 @@ const init = async() => {
         await Skills.create({ name: 'macOS', category: 'OS experience'});
         await Skills.create({ name: 'AWS', category: 'Cloud'});
         await Skills.create({ name: 'Git', category: 'IDE, tools'});
+
+        const port = process.env.PORT || 1345;
+        app.listen(port, () => `listen on port ${port} ...`);
     }
     catch (err) {
         console.log(err);
