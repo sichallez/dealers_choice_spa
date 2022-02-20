@@ -32,6 +32,17 @@ app.get('/', async(req, res, next) => {
     }
 });
 
+app.delete('/api/technical_skills/:id', async(req, res, next) => {
+    try {
+        const skill = await Skills.findByPk(req.params.id);
+        await skill.destroy();
+        res.sendStatus(204);
+    }
+    catch (err) {
+        next(err);
+    }
+});
+
 app.get('/api/technical_skills', async(req, res, next) => {
     try {
         const skill = await Skills.findAll();
