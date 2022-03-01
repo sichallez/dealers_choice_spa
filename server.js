@@ -71,7 +71,7 @@ const init = async() => {
         await Skills.create({ name: 'Git', category: 'IDE, tools'});
 
         const port = process.env.PORT || 1345;
-        app.listen(port, () => `listen on port ${port} ...`);
+        app.listen(port, () => console.log(`listen on port ${port} ...`));
     }
     catch (err) {
         console.log(err);
